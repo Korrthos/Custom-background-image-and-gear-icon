@@ -1,6 +1,6 @@
 # Copyright: ijgnd
 #            The AnKing
-# Code License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html 
+# Code License: GNU AGPL, version 3 or later; http://www.gnu.org/licenses/agpl.html
 # Background images  were obtained from Pexels.com under this license https://www.pexels.com/photo-license/
 # Gear icons were obtained from Wikimedia Commons https://commons.wikimedia.org/wiki/Category:Noto_Color_Emoji_Pie (license listed in link)
 
@@ -17,14 +17,14 @@ from aqt.editor import pics
 #for the toolbar buttons
 from aqt.qt import *
 from aqt.addons import *
-from aqt.utils import openFolder 
+from aqt.utils import openFolder
 from .adjust_css import *
 
 QDir.addSearchPath("CustomBackground", str(Path(__file__).parent / "AnKing"))
 
 
 
-from .config import addon_path, addonfoldername, gc, getUserOption
+from .config import addon_path, gear_path, addonfoldername, gc, getUserOption
 
 #from .gui import Manager
 #a = Manager()
@@ -65,7 +65,7 @@ gui_hooks.state_did_change.append(reset_background)
 
 #reset background when changing config
 def apply_config_changes(config):
-    mw.moveToState("deckBrowser") 
+    mw.moveToState("deckBrowser")
     #mw.toolbar.draw()
 mw.addonManager.setConfigUpdatedAction(__name__, apply_config_changes)
 
@@ -75,10 +75,10 @@ css_files_to_modify = [
     "toolbar-bottom.css", "reviewer.css", "toolbar.css",
 ]
 
-from anki.utils import pointVersion 
-def maybe_adjust_filename_for_2136(filename): 
-    if pointVersion() >= 36: 
-        filename = filename.lstrip("css/") 
+from anki.utils import pointVersion
+def maybe_adjust_filename_for_2136(filename):
+    if pointVersion() >= 36:
+        filename = filename.lstrip("css/")
     return filename
 
 def inject_css(web_content, context):
@@ -114,7 +114,7 @@ def inject_css_into_ts_page(web):
     # Handle both old and new formats
     if page not in ("congrats.html", "congrats"):
         return
-    
+
     css = adjust_congrats_css()
     web.eval(
         """
@@ -130,10 +130,10 @@ gui_hooks.webview_will_set_content.append(inject_css)
 gui_hooks.webview_did_inject_style_into_page.append(inject_css_into_ts_page)
 
 def get_gearfile():
-    gear_abs = os.path.join(addon_path, "user_files", "gear")
-    os.makedirs(gear_abs, exist_ok=True)
-    if not os.listdir(gear_abs):
-        shutil.copytree(src=os.path.join(addon_path, "user_files", "default_gear"), dst=gear_abs, dirs_exist_ok=True)
+    gear_abs = gear_path
+    # os.makedirs(gear_abs, exist_ok=True)
+    # if not os.listdir(gear_abs):
+    #     shutil.copytree(src=os.path.join(addon_path, "user_files", "default_gear"), dst=gear_abs, dirs_exist_ok=True)
 
     gear_list = [os.path.basename(f) for f in os.listdir(gear_abs) if f.endswith(pics)]
     val = gc("Image name for gear")
@@ -178,10 +178,10 @@ advanced_settings.triggered.connect(on_advanced_settings)
 
 shortcut = gc("Keyboard Shortcut", "Ctrl+shift+b")
 #add folder button
-imgfolder = os.path.join(addon_path, "user_files") 
-action = QAction(mw) 
-action.setText("Background/gear image folder") 
+imgfolder = os.path.join(addon_path, "user_files")
+action = QAction(mw)
+action.setText("Background/gear image folder")
 action.setShortcut(QKeySequence(shortcut))
-menu.addAction(action) 
+menu.addAction(action)
 action.triggered.connect(lambda: openFolder(imgfolder))
 '''

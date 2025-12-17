@@ -9,7 +9,7 @@ import random
 from aqt.editor import pics
 from aqt import gui_hooks
 
-from .config import addon_path, addonfoldername, gc
+from .config import addon_path, bg_path, addonfoldername, gc
 
 
 def add_bg_img(imgname, location, review=False):
@@ -27,25 +27,25 @@ def add_bg_img(imgname, location, review=False):
     if location == "top":
         bg_color = gc("background-color top", "")
     elif location == "bottom":
-        bg_color = gc("background-color bottom", "")  
+        bg_color = gc("background-color bottom", "")
     if review:
         opacity = gc("background opacity review", "1")
     else:
-        opacity = gc("background opacity main", "1")      
+        opacity = gc("background opacity main", "1")
     scale = gc("background scale", "1")
 
     bracket_start = "body::before {"
     bracket_close = "}"
     if review and not gc("Reviewer image"):
         background = "background-image:none!important;"
-    else:    
+    else:
         background = f"""
-    background-image: url("{img_web_rel_path}"); 
-    background-size: {gc("background-size", "contain")};  
-    background-attachment: {gc("background-attachment", "fixed")}!important; 
+    background-image: url("{img_web_rel_path}");
+    background-size: {gc("background-size", "contain")};
+    background-attachment: {gc("background-attachment", "fixed")}!important;
     background-repeat: no-repeat;
     background-position: {bg_position};
-    background-color: {bg_color}!important; 
+    background-color: {bg_color}!important;
     opacity: {opacity};
     content: "";
     top: 0;
@@ -58,14 +58,14 @@ def add_bg_img(imgname, location, review=False):
     transform: scale({scale});
     """
 
-    css = f"""{bracket_start}\n{background}\n{bracket_close}"""   
+    css = f"""{bracket_start}\n{background}\n{bracket_close}"""
     return css
 
 def get_bg_img():
-    bg_abs_path = os.path.join(addon_path, "user_files", "background")
-    os.makedirs(bg_abs_path, exist_ok=True)
-    if not os.listdir(bg_abs_path):
-        shutil.copytree(src=os.path.join(addon_path, "user_files", "default_background"), dst=bg_abs_path, dirs_exist_ok=True)
+    bg_abs_path = bg_path
+    # os.makedirs(bg_abs_path, exist_ok=True)
+    # if not os.listdir(bg_abs_path):
+    #     shutil.copytree(src=os.path.join(addon_path, "user_files", "default_background"), dst=bg_abs_path, dirs_exist_ok=True)
 
     bgimg_list = [os.path.basename(f) for f in os.listdir(bg_abs_path) if f.endswith(pics)]
     val = gc("Image name for background")
@@ -114,8 +114,8 @@ def adjust_congrats_css():
 
 def adjust_reviewer_css():
     cont = add_bg_img(imgname, "body", True)
-    return cont    
+    return cont
 
 def adjust_reviewerbottom_css():
     cont = add_bg_img(imgname, "bottom", True)
-    return cont       
+    return cont
