@@ -1,7 +1,7 @@
 {
     "Image name for background": "manuel-cosentino-n--CMLApjfI-unsplash.jpg",
-    "Image name for gear": "AnKing.png",
-    "Keyboard Shortcut": "gears.svg",
+    "Image name for gear": "gears.svg",
+    "Keyboard Shortcut": "Ctrl+Shift+b",
     "Reviewer image": true,
     "Toolbar image": true,
     "Toolbar top/bottom": true,
