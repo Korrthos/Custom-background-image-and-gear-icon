@@ -4,8 +4,6 @@ from aqt import mw
 
 
 addon_path = os.path.dirname(__file__)
-bg_path = os.path.expanduser("~/.dotfiles/.assets/wallpapers/")
-gear_path = os.path.expanduser("~/.dotfiles/.assets/icons/")
 addonfoldername = os.path.basename(addon_path)
 
 

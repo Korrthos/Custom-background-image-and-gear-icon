@@ -24,7 +24,7 @@ QDir.addSearchPath("CustomBackground", str(Path(__file__).parent / "AnKing"))
 
 
 
-from .config import addon_path, gear_path, addonfoldername, gc, getUserOption
+from .config import addon_path, addonfoldername, gc, getUserOption
 
 #from .gui import Manager
 #a = Manager()
@@ -130,7 +130,7 @@ gui_hooks.webview_will_set_content.append(inject_css)
 gui_hooks.webview_did_inject_style_into_page.append(inject_css_into_ts_page)
 
 def get_gearfile():
-    gear_abs = gear_path
+    gear_abs = os.path.join(addon_path, "user_files", "default_gear")
     # os.makedirs(gear_abs, exist_ok=True)
     # if not os.listdir(gear_abs):
     #     shutil.copytree(src=os.path.join(addon_path, "user_files", "default_gear"), dst=gear_abs, dirs_exist_ok=True)
@@ -152,7 +152,7 @@ def get_gearfile():
 
 def replace_gears(deck_browser, content):
     old = """<img src='/_anki/imgs/gears.svg'"""
-    new = f"""<img src='/_addons/{addonfoldername}/user_files/gear/{get_gearfile()}'"""
+    new = f"""<img src='/_addons/{addonfoldername}/user_files/default_gear/{get_gearfile()}'"""
     if gc("Image name for gear") != "gears.svg":
         content.tree = content.tree.replace(old, new)
     else:

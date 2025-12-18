@@ -9,12 +9,12 @@ import random
 from aqt.editor import pics
 from aqt import gui_hooks
 
-from .config import addon_path, bg_path, addonfoldername, gc
+from .config import addon_path, addonfoldername, gc
 
 
 def add_bg_img(imgname, location, review=False):
     #add background image for normal and nightmode
-    img_web_rel_path  = f"/_addons/{addonfoldername}/user_files/background/{imgname}"
+    img_web_rel_path  = f"/_addons/{addonfoldername}/user_files/default_background/{imgname}"
     if location == "body":
         bg_position = gc("background-position", "center")
         bg_color = gc("background-color main", "")
@@ -62,7 +62,7 @@ def add_bg_img(imgname, location, review=False):
     return css
 
 def get_bg_img():
-    bg_abs_path = bg_path
+    bg_abs_path = os.path.join(addon_path, "user_files", "default_background")
     # os.makedirs(bg_abs_path, exist_ok=True)
     # if not os.listdir(bg_abs_path):
     #     shutil.copytree(src=os.path.join(addon_path, "user_files", "default_background"), dst=bg_abs_path, dirs_exist_ok=True)
