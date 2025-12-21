@@ -4,7 +4,13 @@ from aqt import mw
 
 
 addon_path = os.path.dirname(__file__)
+anki_path = os.path.dirname(addon_path)
+localfilesname = "local-anki-files"
+
+user_path = os.path.join(anki_path, localfilesname)
 addonfoldername = os.path.basename(addon_path)
+
+
 
 
 def gc(arg="", fail=False):
