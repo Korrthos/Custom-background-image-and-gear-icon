@@ -14,7 +14,7 @@ from .config import addon_path, user_path, addonfoldername, gc
 
 def add_bg_img(imgname, location, review=False):
     #add background image for normal and nightmode
-    img_web_rel_path  = f"/{user_path}/background/{imgname}"
+    img_web_rel_path  = f"/_addons/{addonfoldername}/user_files/background/{imgname}"
     if location == "body":
         bg_position = gc("background-position", "center")
         bg_color = gc("background-color main", "")

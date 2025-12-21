@@ -152,7 +152,7 @@ def get_gearfile():
 
 def replace_gears(deck_browser, content):
     old = """<img src='/_anki/imgs/gears.svg'"""
-    new = f"""<img src='/{user_path}/gear/{get_gearfile()}'"""
+    new = f"""<img src='/_addons/{addonfoldername}/user_files/gear/{get_gearfile()}'"""
     if gc("Image name for gear") != "gears.svg":
         content.tree = content.tree.replace(old, new)
     else:
