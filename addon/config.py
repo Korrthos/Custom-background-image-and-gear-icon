@@ -4,6 +4,7 @@ from aqt import mw
 
 
 addon_path = os.path.dirname(__file__)
+user_path = os.path.join(os.path.expanduser("~"), ".config", "anki", "cbigi")
 addonfoldername = os.path.basename(addon_path)
 
 
